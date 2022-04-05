@@ -54,14 +54,6 @@ public class Hello {
             primeFactors[iNumberCnt][1][cnt] = exponent;
         }
 
-        for (int q = 0; q < iNumberCnt + 1; q++) {
-            for (cnt = 0; cnt < 6; cnt++) {
-                System.out.println(primeFactors[q][0][cnt] + " " +
-                        primeFactors[q][1][cnt]);
-            }
-            System.out.println();
-        }
-
         return primeFactors;
     }
 
@@ -89,9 +81,9 @@ public class Hello {
     }
 
     public static int getLCN(int primeFactors[][][], int iNumberCnt) {
-        int LCN = 1, maxExponent = 1, cnt = 0;
+        int LCN = 1, maxExponent = 1, maxFactorCnt = 1, cnt = 0;
 
-        for (int k = 0; primeFactors[0][0][k] != 0; k++) {
+        for (int k = 0; k < 100; k++) { // 2번째 인자에 적당한 값이 들어가야함
             cnt = 0;
             maxExponent = primeFactors[0][1][k];
 
@@ -108,9 +100,7 @@ public class Hello {
                 maxExponent = 0;
             }
             LCN *= Math.pow(primeFactors[0][0][k], maxExponent);
-            System.out.println(k);
         }
         return LCN;
     }
-
 }
