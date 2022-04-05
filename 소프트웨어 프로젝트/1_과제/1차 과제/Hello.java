@@ -81,9 +81,9 @@ public class Hello {
     }
 
     public static int getLCN(int primeFactors[][][], int iNumberCnt) {
-        int LCN = 1, maxExponent = 1, maxFactorCnt = 1, cnt = 0;
+        int LCN = 1, maxExponent = 1, cnt = 0;
 
-        for (int k = 0; k < 100; k++) { // 2번째 인자에 적당한 값이 들어가야함
+        for (int k = 0; primeFactors[0][0][k] != 0; k++) { // 2번째 인자에 적당한 값이 들어가야함
             cnt = 0;
             maxExponent = primeFactors[0][1][k];
 
