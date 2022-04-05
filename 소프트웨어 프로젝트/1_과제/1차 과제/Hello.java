@@ -15,8 +15,9 @@ public class Hello {
                 break;
             }
 
-            primeFactors = primeFactorization(iNumbers[i], i);
-            GCD = getGCD(primeFactors, iNumbers[i], i);
+            primeFactorization(primeFactors, iNumbers[i], i);
+            GCD = getGCD(primeFactors, i);
+            LCN = getLCN(primeFactors, i);
 
             System.out.print("Input Numbers : ");
             for (int j = -1; j < i; j++) {
@@ -30,8 +31,7 @@ public class Hello {
         scanner.close();
     }
 
-    public static int[][][] primeFactorization(int iNumber, int iNumberCnt) {
-        int primeFactors[][][] = new int[1000][2][100];
+    public static int[][][] primeFactorization(int primeFactors[][][], int iNumber, int iNumberCnt) {
         int exponent, cnt = 0;
 
         primeFactors[iNumberCnt][0][cnt] = 1;
@@ -54,34 +54,63 @@ public class Hello {
             primeFactors[iNumberCnt][1][cnt] = exponent;
         }
 
+        for (int q = 0; q < iNumberCnt + 1; q++) {
+            for (cnt = 0; cnt < 6; cnt++) {
+                System.out.println(primeFactors[q][0][cnt] + " " +
+                        primeFactors[q][1][cnt]);
+            }
+            System.out.println();
+        }
+
         return primeFactors;
     }
 
-    public static int getGCD(int primeFactors[][][], int iNumber, int iNumberCnt) {
-        int maxFactor = 1;
-        int cnt = 0;
-        int minExponent;
-        int j = 0;
-        for (int i = 0; i < 9; i++) {
-            minExponent = 1000;
-            j = 0;
+    public static int getGCD(int primeFactors[][][], int iNumberCnt) {
+        int GCD = 1, minExponent = 1, cnt = 0;
 
-            if (primeFactors[j][1][i] > 0) {
-                for (j = 0; j < iNumberCnt; j++) {
-                    if (primeFactors[j][1][i] > 0) {
-                        if (primeFactors[j][1][i] < minExponent) {
-                            minExponent = primeFactors[j][1][i];
-                        }
-                        cnt++;
+        for (int k = 0; primeFactors[0][0][k] != 0; k++) {
+            cnt = 0;
+            minExponent = primeFactors[0][1][k];
+            for (int i = 0; i < iNumberCnt + 1; i++) {
+                if (primeFactors[i][1][k] > 0) {
+                    if (primeFactors[i][1][k] < minExponent) {
+                        minExponent = primeFactors[i][1][k];
                     }
+
+                    if (cnt == iNumberCnt) {
+                        GCD *= Math.pow(primeFactors[0][0][k], minExponent);
+                        // continue;
+                    }
+                    cnt++;
+                }
+            }
+        }
+        return GCD;
+    }
+
+    public static int getLCN(int primeFactors[][][], int iNumberCnt) {
+        int LCN = 1, maxExponent = 1, cnt = 0;
+
+        for (int k = 0; primeFactors[0][0][k] != 0; k++) {
+            cnt = 0;
+            maxExponent = primeFactors[0][1][k];
+
+            for (int i = 0; i < iNumberCnt + 1; i++) {
+                if (primeFactors[i][1][k] > 0) {
+                    if (primeFactors[i][1][k] > maxExponent) {
+                        maxExponent = primeFactors[i][1][k];
+                    }
+                    cnt++;
                 }
             }
 
-            if (cnt == iNumberCnt) {
-                maxFactor *= Math.pow(primeFactors[0][0][i], minExponent);
+            if (cnt == 0) {
+                maxExponent = 0;
             }
+            LCN *= Math.pow(primeFactors[0][0][k], maxExponent);
+            System.out.println(k);
         }
-
-        return maxFactor;
+        return LCN;
     }
+
 }
