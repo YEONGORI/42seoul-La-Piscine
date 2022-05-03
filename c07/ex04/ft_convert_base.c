@@ -6,12 +6,11 @@
 /*   By: yeongele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 22:06:22 by yeongele          #+#    #+#             */
-/*   Updated: 2022/05/01 13:18:15 by yeongele         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:08:53 by yeongele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 long long	ft_atoi_base(char *str, char *base);
 int			ch_base(char *base);

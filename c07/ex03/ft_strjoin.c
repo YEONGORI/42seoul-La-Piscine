@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 17:33:11 by yeongele          #+#    #+#             */
-/*   Updated: 2022/04/30 22:05:56 by yeongele         ###   ########.fr       */
+/*   Created: 2022/05/02 04:05:47 by yeongele          #+#    #+#             */
+/*   Updated: 2022/05/02 13:53:14 by yeongele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 int	ft_strlen(char *str)
 {
@@ -25,20 +24,17 @@ int	ft_strlen(char *str)
 
 int	get_size(int cnt, char **strs, char *sep)
 {
-	int		i;
-	int		size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
 	while (i < cnt)
-		size += ft_strlen(strs[i++]);
-	i = 0;
-	while (i < cnt - 1)
 	{
-		size += ft_strlen(sep);
+		size += ft_strlen(strs[i]);
 		i++;
 	}
-	printf("%d\n", size);
+	size += ((cnt - 1) * ft_strlen(sep));
 	return (size);
 }
 
@@ -52,7 +48,11 @@ char	*ft_strcat(char *dest, char *src)
 	while (dest[i])
 		i++;
 	while (src[j])
-		dest[i++] = src[j++];
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
 	dest[i] = '\0';
 	return (dest);
 }
@@ -64,19 +64,22 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	int		i;
 
 	i = 0;
+	if (size == 0)
+	{
+		arr = (char *) malloc(sizeof(char));
+		arr[0] = '\0';
+		return (arr);
+	}
 	len = get_size(size, strs, sep);
-	arr = (char *) malloc(sizeof(char) * len + 1);
+	arr = (char *) malloc(sizeof(char) * (len + 1));
 	if (arr == NULL)
 		return (NULL);
-	while (arr[i])
-		arr[i++] = '\0';
 	arr[0] = '\0';
-	while (i < size && len != 0)
+	while (i < size)
 	{
 		arr = ft_strcat(arr, strs[i]);
 		if (i < size - 1)
 			arr = ft_strcat(arr, sep);
-		printf("%s\n", strs[i]);
 		i++;
 	}
 	return (arr);
